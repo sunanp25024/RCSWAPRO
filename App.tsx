@@ -1,14 +1,15 @@
 import React, { useState, useEffect } from 'react';
-import { Page, FormData, Submission, Status, RefcekData } from './types';
+import { Page, FormData, Submission, Status, RefcekData, LaporanData } from './types';
 import LandingPage from './components/LandingPage';
 import FormPage from './components/FormPage';
 import ResultPage from './components/ResultPage';
-import { DUMMY_SUBMISSIONS, DUMMY_REFCEK_DATA } from './constants';
+import { DUMMY_SUBMISSIONS, DUMMY_REFCEK_DATA, DUMMY_LAPORAN_DATA } from './constants';
 
 const App: React.FC = () => {
     const [currentPage, setCurrentPage] = useState<Page>(Page.LANDING);
     const [submissions, setSubmissions] = useState<Submission[]>([]);
     const [refcekData, setRefcekData] = useState<RefcekData[]>([]);
+    const [laporanData, setLaporanData] = useState<LaporanData[]>([]);
     const [pageKey, setPageKey] = useState(0);
 
     useEffect(() => {
@@ -43,6 +44,21 @@ const App: React.FC = () => {
             console.error("Failed to load refcekData from localStorage", error);
             setRefcekData(DUMMY_REFCEK_DATA);
         }
+
+        // Load Laporan Data
+        try {
+            const storedLaporanData = localStorage.getItem('laporanData');
+            if (storedLaporanData) {
+                setLaporanData(JSON.parse(storedLaporanData));
+            } else {
+                setLaporanData(DUMMY_LAPORAN_DATA);
+                localStorage.setItem('laporanData', JSON.stringify(DUMMY_LAPORAN_DATA));
+            }
+        } catch (error) {
+            console.error("Failed to load laporanData from localStorage", error);
+            setLaporanData(DUMMY_LAPORAN_DATA);
+        }
+
     }, []);
 
     const handleNavigate = (page: Page) => {
@@ -95,6 +111,31 @@ const App: React.FC = () => {
         localStorage.setItem('refcekData', JSON.stringify(updatedData));
     };
 
+    // CRUD Handlers for Laporan Data
+    const handleAddLaporan = (data: Omit<LaporanData, 'id'>) => {
+        const newData: LaporanData = {
+            ...data,
+            id: new Date().getTime().toString(),
+        };
+        const updatedData = [newData, ...laporanData];
+        setLaporanData(updatedData);
+        localStorage.setItem('laporanData', JSON.stringify(updatedData));
+    };
+
+    const handleUpdateLaporan = (updatedEntry: LaporanData) => {
+        const updatedData = laporanData.map(d =>
+            d.id === updatedEntry.id ? updatedEntry : d
+        );
+        setLaporanData(updatedData);
+        localStorage.setItem('laporanData', JSON.stringify(updatedData));
+    };
+
+    const handleDeleteLaporan = (id: string) => {
+        const updatedData = laporanData.filter(d => d.id !== id);
+        setLaporanData(updatedData);
+        localStorage.setItem('laporanData', JSON.stringify(updatedData));
+    };
+
 
     const renderPage = () => {
         switch (currentPage) {
@@ -109,6 +150,10 @@ const App: React.FC = () => {
                     onAddRefcek={handleAddRefcek}
                     onUpdateRefcek={handleUpdateRefcek}
                     onDeleteRefcek={handleDeleteRefcek}
+                    laporanData={laporanData}
+                    onAddLaporan={handleAddLaporan}
+                    onUpdateLaporan={handleUpdateLaporan}
+                    onDeleteLaporan={handleDeleteLaporan}
                 />;
             case Page.LANDING:
             default:

@@ -1,4 +1,4 @@
-import { Submission, Status, RefcekData, RefcekProgress, KandidatStatus } from './types';
+import { Submission, Status, RefcekData, RefcekProgress, KandidatStatus, LaporanData } from './types';
 
 export const DUMMY_SUBMISSIONS: Submission[] = [
   {
@@ -97,4 +97,44 @@ export const DUMMY_REFCEK_DATA: RefcekData[] = [
     keterangan: 'Menunggu konfirmasi dari referensi kedua.',
     buArea: 'Jane Smith',
   }
+];
+
+export const DUMMY_LAPORAN_DATA: LaporanData[] = [
+  {
+    id: 'lap1',
+    tanggalRequest: '2024-05-20',
+    perusahaan: 'PT. Sejahtera Abadi',
+    cabang: 'Jakarta Selatan',
+    posisiPekerjaan: 'Account Officer',
+    statusKandidat: 'Selesai',
+    tanggaTerbit: '2024-05-22',
+    sumberKandidat: 'Job Portal',
+    namaLengkap: 'Andi Wijaya',
+    jenisKelamin: 'Laki-laki',
+    tempatTglLahir: 'Bekasi, 12 Juni 1996',
+    nomorKTP: '3275123456780001',
+    alamatDomisili: 'Jl. Mawar No. 5, Bekasi',
+    alamatKTP: 'Jl. Mawar No. 5, Bekasi',
+    noHpWa: '081298765432',
+    agama: 'Islam',
+    namaIbuKandung: 'Rina Marlina',
+    tempatTglLahirIbuKandung: 'Cirebon, 1 Januari 1975',
+    bidangUsaha: 'Financing',
+    pengalamanPekerjaan: 'PT. Makmur Jaya - Marketing',
+    masaKerjaKandidat: '2 tahun',
+    referensi: 'Bapak Subagio - Manager',
+    nomorTeleponReferensi: '081122334455',
+    alasanResign: 'Mencari peluang karir yang lebih baik',
+    akunSosialMedia: 'IG: @andiwijaya',
+    email: 'andi.wijaya@example.com',
+    golDarah: 'A',
+    masalahKehadiran: 'Tidak ada',
+    relasiDenganAtasan: 'Baik',
+    terkaitIntegritas: 'Tidak ada catatan negatif',
+    performance: 'Memenuhi target secara konsisten',
+    penjelasanResign: 'Ingin berkembang di perusahaan yang lebih besar.',
+    hasilRekomendasi: 'Direkomendasikan',
+    justifikasi: 'Kandidat memiliki pengalaman yang relevan dan rekam jejak yang baik.',
+    keterangan: 'Proses verifikasi berjalan lancar.',
+  },
 ];

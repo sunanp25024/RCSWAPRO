@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
-import { RefcekData } from '../types';
+import { RefcekData, LaporanData } from '../types';
 import StatusRefcekTab from './StatusRefcekTab';
+import LaporanTab from './LaporanTab';
 
 type Menu = 'STATUS REFCEK' | 'LAPORAN' | 'WOM' | 'KENDALA';
 
@@ -9,10 +10,17 @@ interface ReportPageProps {
     onAddRefcek: (data: Omit<RefcekData, 'id'>) => void;
     onUpdateRefcek: (data: RefcekData) => void;
     onDeleteRefcek: (id: string) => void;
+    laporanData: LaporanData[];
+    onAddLaporan: (data: Omit<LaporanData, 'id'>) => void;
+    onUpdateLaporan: (data: LaporanData) => void;
+    onDeleteLaporan: (id: string) => void;
 }
 
 
-const ReportPage: React.FC<ReportPageProps> = ({ refcekData, onAddRefcek, onUpdateRefcek, onDeleteRefcek }) => {
+const ReportPage: React.FC<ReportPageProps> = ({ 
+    refcekData, onAddRefcek, onUpdateRefcek, onDeleteRefcek,
+    laporanData, onAddLaporan, onUpdateLaporan, onDeleteLaporan
+ }) => {
     const [isSidebarOpen, setIsSidebarOpen] = useState(true);
     const [activeMenu, setActiveMenu] = useState<Menu>('STATUS REFCEK');
 
@@ -30,6 +38,15 @@ const ReportPage: React.FC<ReportPageProps> = ({ refcekData, onAddRefcek, onUpda
                 onAdd={onAddRefcek}
                 onUpdate={onUpdateRefcek}
                 onDelete={onDeleteRefcek}
+            />;
+        }
+
+        if (activeMenu === 'LAPORAN') {
+            return <LaporanTab
+                data={laporanData}
+                onAdd={onAddLaporan}
+                onUpdate={onUpdateLaporan}
+                onDelete={onDeleteLaporan}
             />;
         }
 

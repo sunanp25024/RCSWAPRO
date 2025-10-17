@@ -77,3 +77,42 @@ export interface RefcekData {
   keterangan: string;
   buArea: string;
 }
+
+// Tipe data baru untuk Laporan
+export interface LaporanData {
+  id: string;
+  tanggalRequest: string;
+  perusahaan: string;
+  cabang: string;
+  posisiPekerjaan: string;
+  statusKandidat: string;
+  tanggaTerbit: string;
+  sumberKandidat: string;
+  namaLengkap: string;
+  jenisKelamin: 'Laki-laki' | 'Perempuan' | '';
+  tempatTglLahir: string;
+  nomorKTP: string;
+  alamatDomisili: string;
+  alamatKTP: string;
+  noHpWa: string;
+  agama: string;
+  namaIbuKandung: string;
+  tempatTglLahirIbuKandung: string;
+  bidangUsaha: string;
+  pengalamanPekerjaan: string;
+  masaKerjaKandidat: string;
+  referensi: string;
+  nomorTeleponReferensi: string;
+  alasanResign: string;
+  akunSosialMedia: string;
+  email: string;
+  golDarah: string;
+  masalahKehadiran: string;
+  relasiDenganAtasan: string;
+  terkaitIntegritas: string;
+  performance: string;
+  penjelasanResign: string;
+  hasilRekomendasi: string;
+  justifikasi: string;
+  keterangan: string;
+}

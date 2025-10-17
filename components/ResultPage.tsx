@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { Page, Submission, Status, RefcekData } from '../types';
+import { Page, Submission, Status, RefcekData, LaporanData } from '../types';
 import SubmissionDetailModal from './SubmissionDetailModal';
 import ReportPage from './ReportPage';
 import FormPdfPage from './FormPdfPage'; // Import komponen baru
@@ -17,6 +17,10 @@ interface ResultPageProps {
   onAddRefcek: (data: Omit<RefcekData, 'id'>) => void;
   onUpdateRefcek: (data: RefcekData) => void;
   onDeleteRefcek: (id: string) => void;
+  laporanData: LaporanData[];
+  onAddLaporan: (data: Omit<LaporanData, 'id'>) => void;
+  onUpdateLaporan: (data: LaporanData) => void;
+  onDeleteLaporan: (id: string) => void;
 }
 
 const statusStyles: Record<Status, string> = {
@@ -32,7 +36,11 @@ const ResultPage: React.FC<ResultPageProps> = ({
     refcekData,
     onAddRefcek,
     onUpdateRefcek,
-    onDeleteRefcek
+    onDeleteRefcek,
+    laporanData,
+    onAddLaporan,
+    onUpdateLaporan,
+    onDeleteLaporan
 }) => {
     const [activeTab, setActiveTab] = useState('Dashboard');
     const [filteredSubmissions, setFilteredSubmissions] = useState<Submission[]>(submissions);
@@ -217,6 +225,10 @@ const ResultPage: React.FC<ResultPageProps> = ({
                         onAddRefcek={onAddRefcek}
                         onUpdateRefcek={onUpdateRefcek}
                         onDeleteRefcek={onDeleteRefcek}
+                        laporanData={laporanData}
+                        onAddLaporan={onAddLaporan}
+                        onUpdateLaporan={onUpdateLaporan}
+                        onDeleteLaporan={onDeleteLaporan}
                     />}
                     {activeTab === 'Form PDF' && <FormPdfPage />}
                 </div>
