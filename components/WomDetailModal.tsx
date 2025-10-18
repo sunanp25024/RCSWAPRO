@@ -1,67 +1,73 @@
 import React from 'react';
-import { LaporanData } from '../types';
+import { WomData } from '../types';
 
 declare const jspdf: any;
 declare const XLSX: any;
 
-interface LaporanDetailModalProps {
-    data: LaporanData;
+interface WomDetailModalProps {
+    data: WomData;
     onClose: () => void;
 }
 
-const LaporanDetailModal: React.FC<LaporanDetailModalProps> = ({ data, onClose }) => {
+const WomDetailModal: React.FC<WomDetailModalProps> = ({ data, onClose }) => {
     
     const fieldsConfig = [
-      { section: 'Informasi Pekerjaan', fields: [
-        { label: 'Tanggal Request', key: 'tanggalRequest' },
-        { label: 'Tanggal Terbit', key: 'tanggaTerbit' },
-        { label: 'Perusahaan', key: 'perusahaan' },
-        { label: 'Cabang', key: 'cabang' },
-        { label: 'Posisi Pekerjaan', key: 'posisiPekerjaan' },
-        { label: 'Status Kandidat', key: 'statusKandidat' },
-        { label: 'Sumber Kandidat', key: 'sumberKandidat' },
-      ]},
-      { section: 'Data Diri Kandidat', fields: [
-        { label: 'Nama Lengkap', key: 'namaLengkap' },
-        { label: 'Jenis Kelamin', key: 'jenisKelamin' },
-        { label: 'Tempat & Tgl Lahir', key: 'tempatTglLahir' },
-        { label: 'Nomor KTP', key: 'nomorKTP' },
-        { label: 'Alamat Domisili', key: 'alamatDomisili' },
-        { label: 'Alamat KTP', key: 'alamatKTP' },
-        { label: 'No Hp / Wa', key: 'noHpWa' },
-        { label: 'Agama', key: 'agama' },
-        { label: 'Email', key: 'email' },
-        { label: 'Akun Sosial Media', key: 'akunSosialMedia' },
-        { label: 'Gol. Darah', key: 'golDarah' },
-      ]},
-      { section: 'Data Keluarga', fields: [
-        { label: 'Nama Ibu Kandung', key: 'namaIbuKandung' },
-        { label: 'Tempat & Tgl Lahir Ibu', key: 'tempatTglLahirIbuKandung' },
-      ]},
-      { section: 'Riwayat & Referensi Pekerjaan', fields: [
-        { label: 'Bidang Usaha', key: 'bidangUsaha' },
-        { label: 'Pengalaman Pekerjaan', key: 'pengalamanPekerjaan' },
-        { label: 'Masa Kerja Kandidat', key: 'masaKerjaKandidat' },
-        { label: 'Referensi', key: 'referensi' },
-        { label: 'Nomor Telepon Referensi', key: 'nomorTeleponReferensi' },
-        { label: 'Alasan Resign', key: 'alasanResign' },
-        { label: 'Penjelasan Resign', key: 'penjelasanResign' },
-      ]},
-      { section: 'Hasil Verifikasi', fields: [
-        { label: 'Masalah Kehadiran', key: 'masalahKehadiran' },
-        { label: 'Relasi Dengan Atasan', key: 'relasiDenganAtasan' },
-        { label: 'Terkait Integritas', key: 'terkaitIntegritas' },
-        { label: 'Performance', key: 'performance' },
-        { label: 'Hasil Rekomendasi', key: 'hasilRekomendasi' },
-        { label: 'Justifikasi', key: 'justifikasi' },
-        { label: 'Keterangan', key: 'keterangan' },
-      ]},
+        { section: 'DATA DIRI PELAMAR', fields: [
+            { label: 'Tanggal Reff Check', key: 'tanggalReffCheck' },
+            { label: 'Nama Pelamar', key: 'namaPelamar' },
+            { label: 'Cabang', key: 'cabang' },
+            { label: 'Lokasi Kerja', key: 'lokasiKerja' },
+            { label: 'BU', key: 'bu' },
+            { label: 'Source', key: 'source' },
+            { label: 'Jenis Kelamin', value: data.jenisKelamin === 'L' ? 'Laki-laki' : 'Perempuan' },
+            { label: 'Tempat & Tanggal Lahir', value: `${data.tempatLahir}, ${data.tanggalLahir}` },
+            { label: 'Nomor e-KTP', key: 'nomorKtp' },
+            { label: 'Agama', key: 'agama' },
+            { label: 'Alamat Lengkap (KTP)', key: 'alamatKtp' },
+            { label: 'No. Telp/HP', key: 'noTelp' },
+            { label: 'Nama Ibu Kandung', key: 'namaIbuKandung' },
+            { label: 'Tempat & Tanggal Lahir Ibu', value: `${data.tempatLahirIbu}, ${data.tanggalLahirIbu}` },
+            { label: 'Email', key: 'email' },
+            { label: 'Golongan Darah', key: 'golonganDarah' },
+        ]},
+        { section: 'DATA REFERENCE CHECK', fields: [
+            { label: 'Status Kandidat', key: 'statusKandidat' },
+            { label: 'Posisi Yang Dilamar', key: 'posisiDilamar' },
+            { label: 'Pengalaman', key: 'pengalaman' },
+            { label: 'Nama Perusahaan', key: 'namaPerusahaan' },
+            { label: 'Bidang Usaha', key: 'bidangUsaha' },
+            { label: 'Pemberi Referensi', key: 'pemberiReferensi' },
+            { label: 'Nomor Telepon Referensi', key: 'nomorTeleponReferensi' },
+            { label: 'Jabatan Referensi', key: 'jabatanReferensi' },
+            { label: 'Jabatan Terakhir Kandidat', key: 'jabatanTerakhirKandidat' },
+            { label: 'Masa Kerja Kandidat', key: 'masaKerjaKandidat' },
+            { label: 'Masalah Kehadiran', key: 'masalahKehadiran' },
+            { label: 'Tidak Masuk Tanpa Izin', key: 'tidakMasukTanpaIzin' },
+            { label: 'Masalah Kesehatan', key: 'masalahKesehatan' },
+            { label: 'Relasi Dengan Rekan/Atasan', key: 'relasiDengan' },
+            { label: 'Terkait Integritas', key: 'terkaitIntegritas' },
+            { label: 'Performance', key: 'performance' },
+            { label: 'Alasan Resign', key: 'alasanResign' },
+            { label: 'Penjelasan Resign', key: 'penjelasanResign' },
+        ]},
+        { section: 'AKUN SOSIAL MEDIA', fields: [
+            { label: 'Facebook', key: 'facebook' },
+            { label: 'Instagram', key: 'instagram' },
+            { label: 'Twitter', key: 'twitter' },
+            { label: 'Akun Media Sosial Lainnya', key: 'akunMediaSosialLainnya' },
+        ]},
+        { section: 'EVALUASI & REKOMENDASI', fields: [
+            { label: 'Kelebihan Kandidat', key: 'kelebihanKandidat' },
+            { label: 'Kekurangan Kandidat', key: 'kekuranganKandidat' },
+            { label: 'Rekomendasi', key: 'rekomendasi' },
+            { label: 'Justifikasi', key: 'justifikasi' },
+        ]}
     ];
 
     const handleDownloadPDF = () => {
         const doc = new jspdf.jsPDF();
         doc.setFontSize(16);
-        doc.text(`Detail Laporan Kandidat: ${data.namaLengkap}`, 14, 22);
+        doc.text(`Detail Laporan WOM: ${data.namaPelamar}`, 14, 22);
         
         let y = 35;
         fieldsConfig.forEach(section => {
@@ -76,8 +82,9 @@ const LaporanDetailModal: React.FC<LaporanDetailModalProps> = ({ data, onClose }
 
             section.fields.forEach(field => {
                 if (y > 280) { doc.addPage(); y = 20; }
-                const value = (data as any)[field.key] || '-';
+                const value = 'key' in field ? (data as any)[field.key] || '-' : field.value;
                 const valueLines = doc.splitTextToSize(value.toString(), 120);
+
                 doc.setFont(undefined, 'bold');
                 doc.text(field.label, 14, y);
                 doc.setFont(undefined, 'normal');
@@ -86,14 +93,14 @@ const LaporanDetailModal: React.FC<LaporanDetailModalProps> = ({ data, onClose }
             });
         });
         
-        doc.save(`detail_laporan_${data.namaLengkap.replace(/\s/g, '_')}.pdf`);
+        doc.save(`detail_wom_${data.namaPelamar.replace(/\s/g, '_')}.pdf`);
     };
 
     const handleDownloadExcel = () => {
         const dataToExport = fieldsConfig.flatMap(section => 
             section.fields.map(field => ({
                 Properti: field.label,
-                Nilai: (data as any)[field.key] || '-',
+                Nilai: 'key' in field ? (data as any)[field.key] || '-' : field.value,
                 Kategori: section.section
             }))
         );
@@ -101,7 +108,7 @@ const LaporanDetailModal: React.FC<LaporanDetailModalProps> = ({ data, onClose }
         const ws = XLSX.utils.json_to_sheet(dataToExport);
         const wb = XLSX.utils.book_new();
         XLSX.utils.book_append_sheet(wb, ws, "Detail");
-        XLSX.writeFile(wb, `detail_laporan_${data.namaLengkap.replace(/\s/g, '_')}.xlsx`);
+        XLSX.writeFile(wb, `detail_wom_${data.namaPelamar.replace(/\s/g, '_')}.xlsx`);
     };
 
 
@@ -118,9 +125,9 @@ const LaporanDetailModal: React.FC<LaporanDetailModalProps> = ({ data, onClose }
 
     return (
         <div className="fixed inset-0 bg-gray-600 bg-opacity-75 overflow-y-auto h-full w-full z-50 flex items-center justify-center p-4">
-            <div className="relative mx-auto w-full max-w-3xl shadow-lg rounded-2xl bg-white" onClick={(e) => e.stopPropagation()}>
+            <div className="relative mx-auto w-full max-w-4xl shadow-lg rounded-2xl bg-white" onClick={(e) => e.stopPropagation()}>
                 <div className="flex justify-between items-center border-b p-5">
-                    <h3 className="text-xl font-bold text-gray-800">Detail Laporan: {data.namaLengkap}</h3>
+                    <h3 className="text-xl font-bold text-gray-800">Detail WOM: {data.namaPelamar}</h3>
                     <button onClick={onClose} className="text-gray-400 hover:text-gray-600"><CloseIcon/></button>
                 </div>
                 <div className="p-5 max-h-[70vh] overflow-y-auto">
@@ -128,7 +135,7 @@ const LaporanDetailModal: React.FC<LaporanDetailModalProps> = ({ data, onClose }
                         {fieldsConfig.map(section => (
                             <React.Fragment key={section.section}>
                                 {sectionTitle(section.section)}
-                                {section.fields.map(field => detailItem(field.label, (data as any)[field.key]))}
+                                {section.fields.map(field => detailItem(field.label, 'key' in field ? (data as any)[field.key] : field.value))}
                             </React.Fragment>
                         ))}
                     </dl>
@@ -153,4 +160,4 @@ const CloseIcon = () => <svg className="h-6 w-6" fill="none" stroke="currentColo
 const FilePdfIcon = () => <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" /></svg>;
 const FileExcelIcon = () => <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 10v6m0 0l-3-3m3 3l3-3M4 17v2a2 2 0 002 2h12a2 2 0 002-2v-2M4 7l8-4 8 4M4 7v10h16V7L12 3 4 7z" /></svg>;
 
-export default LaporanDetailModal;
+export default WomDetailModal;

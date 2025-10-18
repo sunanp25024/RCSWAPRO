@@ -1,15 +1,17 @@
 import React, { useState, useEffect } from 'react';
-import { Page, FormData, Submission, Status, RefcekData, LaporanData } from './types';
+import { Page, FormData, Submission, Status, RefcekData, LaporanData, WomData, WomJatengRefcekData } from './types';
 import LandingPage from './components/LandingPage';
 import FormPage from './components/FormPage';
 import ResultPage from './components/ResultPage';
-import { DUMMY_SUBMISSIONS, DUMMY_REFCEK_DATA, DUMMY_LAPORAN_DATA } from './constants';
+import { DUMMY_SUBMISSIONS, DUMMY_REFCEK_DATA, DUMMY_LAPORAN_DATA, DUMMY_WOM_DATA, DUMMY_WOM_JATENG_REFCEK_DATA } from './constants';
 
 const App: React.FC = () => {
     const [currentPage, setCurrentPage] = useState<Page>(Page.LANDING);
     const [submissions, setSubmissions] = useState<Submission[]>([]);
     const [refcekData, setRefcekData] = useState<RefcekData[]>([]);
     const [laporanData, setLaporanData] = useState<LaporanData[]>([]);
+    const [womData, setWomData] = useState<WomData[]>([]);
+    const [womJatengRefcekData, setWomJatengRefcekData] = useState<WomJatengRefcekData[]>([]);
     const [pageKey, setPageKey] = useState(0);
 
     useEffect(() => {
@@ -58,6 +60,35 @@ const App: React.FC = () => {
             console.error("Failed to load laporanData from localStorage", error);
             setLaporanData(DUMMY_LAPORAN_DATA);
         }
+
+        // Load WOM Data
+        try {
+            const storedWomData = localStorage.getItem('womData');
+            if (storedWomData) {
+                setWomData(JSON.parse(storedWomData));
+            } else {
+                setWomData(DUMMY_WOM_DATA);
+                localStorage.setItem('womData', JSON.stringify(DUMMY_WOM_DATA));
+            }
+        } catch (error) {
+            console.error("Failed to load womData from localStorage", error);
+            setWomData(DUMMY_WOM_DATA);
+        }
+
+        // Load WOM JATENG Refcek Data
+        try {
+            const storedWomJatengData = localStorage.getItem('womJatengRefcekData');
+            if (storedWomJatengData) {
+                setWomJatengRefcekData(JSON.parse(storedWomJatengData));
+            } else {
+                setWomJatengRefcekData(DUMMY_WOM_JATENG_REFCEK_DATA);
+                localStorage.setItem('womJatengRefcekData', JSON.stringify(DUMMY_WOM_JATENG_REFCEK_DATA));
+            }
+        } catch (error) {
+            console.error("Failed to load womJatengRefcekData from localStorage", error);
+            setWomJatengRefcekData(DUMMY_WOM_JATENG_REFCEK_DATA);
+        }
+
 
     }, []);
 
@@ -136,6 +167,56 @@ const App: React.FC = () => {
         localStorage.setItem('laporanData', JSON.stringify(updatedData));
     };
 
+    // CRUD Handlers for WOM Data
+    const handleAddWom = (data: Omit<WomData, 'id'>) => {
+        const newData: WomData = {
+            ...data,
+            id: new Date().getTime().toString(),
+        };
+        const updatedData = [newData, ...womData];
+        setWomData(updatedData);
+        localStorage.setItem('womData', JSON.stringify(updatedData));
+    };
+
+    const handleUpdateWom = (updatedEntry: WomData) => {
+        const updatedData = womData.map(d =>
+            d.id === updatedEntry.id ? updatedEntry : d
+        );
+        setWomData(updatedData);
+        localStorage.setItem('womData', JSON.stringify(updatedData));
+    };
+
+    const handleDeleteWom = (id: string) => {
+        const updatedData = womData.filter(d => d.id !== id);
+        setWomData(updatedData);
+        localStorage.setItem('womData', JSON.stringify(updatedData));
+    };
+    
+    // CRUD Handlers for WOM JATENG Refcek Data
+    const handleAddWomJatengRefcek = (data: Omit<WomJatengRefcekData, 'id'>) => {
+        const newData: WomJatengRefcekData = {
+            ...data,
+            id: new Date().getTime().toString(),
+        };
+        const updatedData = [newData, ...womJatengRefcekData].sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime());
+        setWomJatengRefcekData(updatedData);
+        localStorage.setItem('womJatengRefcekData', JSON.stringify(updatedData));
+    };
+
+    const handleUpdateWomJatengRefcek = (updatedEntry: WomJatengRefcekData) => {
+        const updatedData = womJatengRefcekData.map(d =>
+            d.id === updatedEntry.id ? updatedEntry : d
+        );
+        setWomJatengRefcekData(updatedData);
+        localStorage.setItem('womJatengRefcekData', JSON.stringify(updatedData));
+    };
+
+    const handleDeleteWomJatengRefcek = (id: string) => {
+        const updatedData = womJatengRefcekData.filter(d => d.id !== id);
+        setWomJatengRefcekData(updatedData);
+        localStorage.setItem('womJatengRefcekData', JSON.stringify(updatedData));
+    };
+
 
     const renderPage = () => {
         switch (currentPage) {
@@ -154,6 +235,14 @@ const App: React.FC = () => {
                     onAddLaporan={handleAddLaporan}
                     onUpdateLaporan={handleUpdateLaporan}
                     onDeleteLaporan={handleDeleteLaporan}
+                    womData={womData}
+                    onAddWom={handleAddWom}
+                    onUpdateWom={handleUpdateWom}
+                    onDeleteWom={handleDeleteWom}
+                    womJatengRefcekData={womJatengRefcekData}
+                    onAddWomJatengRefcek={handleAddWomJatengRefcek}
+                    onUpdateWomJatengRefcek={handleUpdateWomJatengRefcek}
+                    onDeleteWomJatengRefcek={handleDeleteWomJatengRefcek}
                 />;
             case Page.LANDING:
             default:

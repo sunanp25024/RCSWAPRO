@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
-import { RefcekData, LaporanData } from '../types';
+import { RefcekData, LaporanData, WomData } from '../types';
 import StatusRefcekTab from './StatusRefcekTab';
 import LaporanTab from './LaporanTab';
+import WomTab from './WomTab';
 
 type Menu = 'STATUS REFCEK' | 'LAPORAN' | 'WOM' | 'KENDALA';
 
@@ -14,12 +15,17 @@ interface ReportPageProps {
     onAddLaporan: (data: Omit<LaporanData, 'id'>) => void;
     onUpdateLaporan: (data: LaporanData) => void;
     onDeleteLaporan: (id: string) => void;
+    womData: WomData[];
+    onAddWom: (data: Omit<WomData, 'id'>) => void;
+    onUpdateWom: (data: WomData) => void;
+    onDeleteWom: (id: string) => void;
 }
 
 
 const ReportPage: React.FC<ReportPageProps> = ({ 
     refcekData, onAddRefcek, onUpdateRefcek, onDeleteRefcek,
-    laporanData, onAddLaporan, onUpdateLaporan, onDeleteLaporan
+    laporanData, onAddLaporan, onUpdateLaporan, onDeleteLaporan,
+    womData, onAddWom, onUpdateWom, onDeleteWom
  }) => {
     const [isSidebarOpen, setIsSidebarOpen] = useState(true);
     const [activeMenu, setActiveMenu] = useState<Menu>('STATUS REFCEK');
@@ -47,6 +53,15 @@ const ReportPage: React.FC<ReportPageProps> = ({
                 onAdd={onAddLaporan}
                 onUpdate={onUpdateLaporan}
                 onDelete={onDeleteLaporan}
+            />;
+        }
+
+        if (activeMenu === 'WOM') {
+            return <WomTab
+                data={womData}
+                onAdd={onAddWom}
+                onUpdate={onUpdateWom}
+                onDelete={onDeleteWom}
             />;
         }
 

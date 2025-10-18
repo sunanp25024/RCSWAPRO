@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { Page, Submission, Status, RefcekData, LaporanData } from '../types';
+import { Page, Submission, Status, RefcekData, LaporanData, WomData, WomJatengRefcekData } from '../types';
 import SubmissionDetailModal from './SubmissionDetailModal';
 import ReportPage from './ReportPage';
 import FormPdfPage from './FormPdfPage'; // Import komponen baru
@@ -21,6 +21,14 @@ interface ResultPageProps {
   onAddLaporan: (data: Omit<LaporanData, 'id'>) => void;
   onUpdateLaporan: (data: LaporanData) => void;
   onDeleteLaporan: (id: string) => void;
+  womData: WomData[];
+  onAddWom: (data: Omit<WomData, 'id'>) => void;
+  onUpdateWom: (data: WomData) => void;
+  onDeleteWom: (id: string) => void;
+  womJatengRefcekData: WomJatengRefcekData[];
+  onAddWomJatengRefcek: (data: Omit<WomJatengRefcekData, 'id'>) => void;
+  onUpdateWomJatengRefcek: (data: WomJatengRefcekData) => void;
+  onDeleteWomJatengRefcek: (id: string) => void;
 }
 
 const statusStyles: Record<Status, string> = {
@@ -40,7 +48,15 @@ const ResultPage: React.FC<ResultPageProps> = ({
     laporanData,
     onAddLaporan,
     onUpdateLaporan,
-    onDeleteLaporan
+    onDeleteLaporan,
+    womData,
+    onAddWom,
+    onUpdateWom,
+    onDeleteWom,
+    womJatengRefcekData,
+    onAddWomJatengRefcek,
+    onUpdateWomJatengRefcek,
+    onDeleteWomJatengRefcek
 }) => {
     const [activeTab, setActiveTab] = useState('Dashboard');
     const [filteredSubmissions, setFilteredSubmissions] = useState<Submission[]>(submissions);
@@ -229,8 +245,17 @@ const ResultPage: React.FC<ResultPageProps> = ({
                         onAddLaporan={onAddLaporan}
                         onUpdateLaporan={onUpdateLaporan}
                         onDeleteLaporan={onDeleteLaporan}
+                        womData={womData}
+                        onAddWom={onAddWom}
+                        onUpdateWom={onUpdateWom}
+                        onDeleteWom={onDeleteWom}
                     />}
-                    {activeTab === 'Form PDF' && <FormPdfPage />}
+                    {activeTab === 'Form PDF' && <FormPdfPage 
+                        womJatengRefcekData={womJatengRefcekData}
+                        onAddWomJatengRefcek={onAddWomJatengRefcek}
+                        onUpdateWomJatengRefcek={onUpdateWomJatengRefcek}
+                        onDeleteWomJatengRefcek={onDeleteWomJatengRefcek}
+                    />}
                 </div>
             </div>
             {selectedSubmission && (
