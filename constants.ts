@@ -1,4 +1,15 @@
-import { Submission, Status, RefcekData, RefcekProgress, KandidatStatus, LaporanData, WomData, WomJatengRefcekData } from './types';
+import { Submission, Status, RefcekData, RefcekProgress, KandidatStatus, LaporanData, WomData, WomJatengRefcekData, WomSulawesiRefcekData, MafRefcekData, McfRefcekData, AdiraRefcekData } from './types';
+import {
+  suciSignature,
+  yeniSignature,
+  wisnuSignature,
+  annisaSignature,
+  febrianaSignature,
+  paramitaSignature,
+  cahyaSignature,
+  nurKholifahSignature,
+  bimoSignature,
+} from './assets/signatures';
 
 export const DUMMY_SUBMISSIONS: Submission[] = [
   {
@@ -189,6 +200,23 @@ export const DUMMY_WOM_DATA: WomData[] = [
   }
 ];
 
+export const SIGNATORIES = [
+  { name: 'Suci Ramanda Putri', image: suciSignature },
+  { name: 'Yeni Kristanti', image: yeniSignature },
+  { name: 'Wisnu Pramusinto', image: wisnuSignature },
+  { name: 'Cahya Latfah Juniar', image: cahyaSignature },
+  { name: 'Nur Kholifah', image: nurKholifahSignature },
+  { name: 'Annisa Destiana', image: annisaSignature },
+  { name: 'Febriana', image: febrianaSignature },
+  { name: 'Paramita', image: paramitaSignature },
+  { name: 'Bimo Tri Nugroho', image: bimoSignature },
+];
+
+export const WOM_JATENG_REKOMENDASI_BY = ['Suci Ramanda Putri', 'Cahya Latfah Juniar', 'Nur Kholifah'];
+export const WOM_JATENG_DIPERIKSA_OLEH = 'Yeni Kristanti';
+export const WOM_JATENG_DIKETAHUI_OLEH = 'Wisnu Pramusinto';
+
+
 export const DUMMY_WOM_JATENG_REFCEK_DATA: WomJatengRefcekData[] = [
   {
     id: 'wjr1',
@@ -227,5 +255,216 @@ export const DUMMY_WOM_JATENG_REFCEK_DATA: WomJatengRefcekData[] = [
     rekomendasi: 'Direkomendasikan',
     justifikasi: 'Kandidat menunjukkan motivasi yang tinggi untuk belajar dan berkembang.',
     email: 'salsabilafir3@gmail.com',
+    direkomendasikanOleh: 'Suci Ramanda Putri',
+    diperiksaOleh: 'Yeni Kristanti',
+    diketahuiOleh: 'Wisnu Pramusinto',
   }
+];
+
+export const WOM_SULAWESI_REKOMENDASI_BY = ['Cahya Latfah Juniar', 'Nur Kholifah', 'Suci Ramanda Putri'];
+export const WOM_SULAWESI_DIPERIKSA_OLEH = 'Yeni Kristanti';
+export const WOM_SULAWESI_DIKETAHUI_OLEH = 'Wisnu Pramusinto';
+
+export const DUMMY_WOM_SULAWESI_REFCEK_DATA: WomSulawesiRefcekData[] = [
+    {
+        id: 'wsr1',
+        createdAt: new Date().toISOString(),
+        namaKandidat: 'Andi Mappasessu',
+        posisiDilamar: 'Field Collector',
+        cabangKapos: 'Makassar',
+        statusKandidat: 'New Hire Eksternal',
+        pengalaman: 'Pengalaman Kerja',
+        namaPerusahaan: 'PT. Angin Ribut Finance',
+        pemberiReferensiNama: 'Daeng Situju',
+        pemberiReferensiJabatan: 'Collection Head',
+        pemberiReferensiTelp: '081122334455',
+        masaKerjaTahun: '2',
+        masaKerjaBulan: '3',
+        masalahKehadiran: 'Tepat Waktu',
+        tidakMasukIzin: '0',
+        masalahKesehatan: 'Tidak Pernah Sakit yang Berkepanjangan',
+        masalahKesehatanDetail: '',
+        relasiAtasan: 'Baik',
+        relasiAtasanDetail: '',
+        relasiRekan: 'Baik',
+        relasiRekanDetail: '',
+        relasiBawahan: 'Baik',
+        relasiBawahanDetail: '',
+        integritas: 'Tidak ada masalah Fraud',
+        integritasDetail: '',
+        performance: 'Exceed Target',
+        alasanResignI: 'Mengundurkan Diri Baik-Baik',
+        alasanResignII: ['Tidak Perpanjang Kontrak'],
+        alasanResignIII: '',
+        alasanResignIVPenjelasan: 'Mencari kompensasi yang lebih baik.',
+        akunMedsosAlamat: 'andi.mappa',
+        akunMedsosStatus: ['Baik - Akun tidak mengandung hal negatif'],
+        akunMedsosLainnya: '',
+        kelebihanKandidat: 'Negosiasi kuat, persisten, dan paham area lokal.',
+        kekuranganKandidat: 'Kurang teliti dalam administrasi.',
+        rekomendasi: 'Direkomendasikan',
+        justifikasi: 'Kandidat memiliki potensi besar untuk mencapai target di cabang Makassar.',
+        email: 'andi.mappa@example.com',
+        direkomendasikanOleh: WOM_SULAWESI_REKOMENDASI_BY[2],
+        diperiksaOleh: WOM_SULAWESI_DIPERIKSA_OLEH,
+        diketahuiOleh: WOM_SULAWESI_DIKETAHUI_OLEH,
+    }
+];
+
+export const MAF_REKOMENDASI_BY = ['Cahya Latfah Juniar', 'Nur Kholifah', 'Suci Ramanda Putri'];
+export const MAF_DIPERIKSA_OLEH = 'Yeni Kristanti';
+export const MAF_DIKETAHUI_OLEH = 'Bimo Tri Nugroho';
+
+export const DUMMY_MAF_REFCEK_DATA: MafRefcekData[] = [
+    {
+        id: 'maf1',
+        createdAt: new Date().toISOString(),
+        namaKandidat: 'SIMON BERLIN PANGARIBUAN. SE',
+        posisiDilamar: 'COLLECTION',
+        cabangKapos: 'MEDAN',
+        statusKandidat: 'New Hire Eksternal',
+        pengalaman: 'Pengalaman Kerja',
+        namaPerusahaan: 'KSP SAHABAT MITRA SEJATI ( OS PT VALDO SUMBER DAYA MANDIRI )',
+        pemberiReferensiDivisi: 'COLLECTION',
+        pemberiReferensiNama: 'BPK DIDING SUNARDI',
+        pemberiReferensiJabatan: 'BRANCH MANAGER CAB MEDAN',
+        pemberiReferensiTelp: '081260605113',
+        masaKerjaTahun: '8',
+        masaKerjaBulan: '2',
+        masalahKehadiran: 'Tepat Waktu',
+        tidakMasukIzin: '0',
+        masalahKesehatan: 'Tidak Pernah Sakit yang Berkepanjangan',
+        masalahKesehatanDetail: '',
+        relasiAtasan: 'Baik',
+        relasiAtasanDetail: '',
+        relasiRekan: 'Baik',
+        relasiRekanDetail: '',
+        relasiBawahan: 'Baik',
+        relasiBawahanDetail: '',
+        integritas: 'Tidak ada masalah Fraud',
+        integritasDetail: '',
+        performance: 'On Target',
+        alasanResignI: 'Mengundurkan Diri Baik-Baik',
+        alasanResignII: ['Tidak Perpanjang Kontrak'],
+        alasanResignIII: '',
+        alasanResignIVPenjelasan: 'HABIS KONTRAK',
+        akunMedsosAlamat1: 'SIMON PANGARIBUAN',
+        akunMedsosAlamat2: 'SIMON_BERLIN_PANGARIBUAN',
+        akunMedsosStatus: 'Baik - Akun tidak mengandung hal negatif',
+        akunMedsosLainnya: '',
+        jenisAngsuran: ['Motor', 'Mobil'],
+        tenorCicilan: '24',
+        tunggakan: 'Tidak',
+        kartuKredit: 'Tidak',
+        rekomendasi: 'Direkomendasikan',
+        justifikasi: '',
+        email: 'simonpangaribuan93@gmail.com',
+        direkomendasikanOleh: MAF_REKOMENDASI_BY[2],
+        diperiksaOleh: MAF_DIPERIKSA_OLEH,
+        diketahuiOleh: MAF_DIKETAHUI_OLEH,
+    }
+];
+
+export const MCF_REKOMENDASI_BY = ['Cahya Latfah Juniar', 'Nur Kholifah', 'Suci Ramanda Putri'];
+export const MCF_DIPERIKSA_OLEH = 'Yeni Kristanti';
+export const MCF_DIKETAHUI_OLEH = 'Bimo Tri Nugroho';
+
+export const DUMMY_MCF_REFCEK_DATA: McfRefcekData[] = [
+    {
+        id: 'mcf1',
+        createdAt: new Date().toISOString(),
+        namaKandidat: 'JANE DOE',
+        posisiDilamar: 'CREDIT ANALYST',
+        cabangKapos: 'JAKARTA PUSAT',
+        statusKandidat: 'New Hire Eksternal',
+        pengalaman: ['Pengalaman Kerja'],
+        namaPerusahaan: 'PT. FINANSIAL SEJAHTERA',
+        pemberiReferensiNama: 'JOHN SMITH',
+        pemberiReferensiJabatan: 'HEAD OF CREDIT',
+        pemberiReferensiTelp: '081298765432',
+        masaKerjaTahun: '3',
+        masaKerjaBulan: '6',
+        masalahKehadiran: 'Tepat Waktu',
+        tidakMasukIzin: '0',
+        masalahKesehatan: 'Tidak Pernah Sakit yang Berkepanjangan',
+        masalahKesehatanDetail: '',
+        relasiAtasan: 'Baik',
+        relasiAtasanDetail: '',
+        relasiRekan: 'Baik',
+        relasiRekanDetail: '',
+        relasiBawahan: 'Baik',
+        relasiBawahanDetail: '',
+        integritas: 'Tidak ada masalah Fraud',
+        integritasDetail: '',
+        performance: 'Exceed Target',
+        alasanResignI: 'Mengundurkan Diri Baik-Baik',
+        alasanResignII: ['PHK', 'Reorganisasi'],
+        alasanResignIII: '',
+        alasanResignIVPenjelasan: 'Perusahaan melakukan restrukturisasi organisasi.',
+        akunMedsosAlamat: 'IG: @janedoe.official',
+        akunMedsosStatus: ['Baik - Akun tidak mengandung hal negatif'],
+        akunMedsosLainnya: '',
+        jenisAngsuran: ['Mobil', 'KPR'],
+        tenorCicilan: '36',
+        tunggakan: 'Tidak',
+        kartuKredit: 'Iya',
+        rekomendasi: 'Direkomendasikan',
+        justifikasi: 'Kandidat memiliki pengalaman yang sangat relevan dan performa yang terbukti.',
+        email: 'jane.doe@example.com',
+        dibuatOleh: MCF_REKOMENDASI_BY[0],
+        diperiksaOleh: MCF_DIPERIKSA_OLEH,
+        diketahuiOleh: MCF_DIKETAHUI_OLEH,
+    }
+];
+
+export const ADIRA_REKOMENDASI_BY = ['Cahya Latfah Juniar', 'Nur Kholifah', 'Suci Ramanda Putri'];
+export const ADIRA_DIPERIKSA_OLEH = 'Yeni Kristanti';
+export const ADIRA_DIKETAHUI_OLEH = 'Wisnu Pramusinto';
+
+export const DUMMY_ADIRA_REFCEK_DATA: AdiraRefcekData[] = [
+    {
+        id: 'adira1',
+        createdAt: new Date().toISOString(),
+        namaKandidat: 'BAMBANG PAMUNGKAS',
+        posisiDilamar: 'BRANCH MANAGER',
+        cabangKapos: 'SURABAYA',
+        statusKandidat: 'New Hire Eksternal',
+        pengalaman: ['Pengalaman Kerja'],
+        namaPerusahaan: 'PT. LINTAS SAMUDERA',
+        pemberiReferensiNama: 'SRI MULYANI',
+        pemberiReferensiJabatan: 'HR DIRECTOR',
+        pemberiReferensiTelp: '085612345678',
+        masaKerjaTahun: '5',
+        masaKerjaBulan: '0',
+        masalahKehadiran: 'Tepat Waktu',
+        tidakMasukIzin: '0',
+        masalahKesehatan: 'Tidak Pernah Sakit yang Berkepanjangan',
+        masalahKesehatanDetail: '',
+        relasiAtasan: 'Baik',
+        relasiAtasanDetail: '',
+        relasiRekan: 'Baik',
+        relasiRekanDetail: '',
+        relasiBawahan: 'Baik',
+        relasiBawahanDetail: '',
+        integritas: 'Tidak ada masalah Fraud',
+        integritasDetail: '',
+        performance: 'Exceed Target',
+        alasanResignI: 'Mengundurkan Diri Baik-Baik',
+        alasanResignII: ['Reorganisasi'],
+        alasanResignIII: '',
+        alasanResignIVPenjelasan: 'Ingin mencari tantangan baru di industri multifinance.',
+        akunMedsosAlamat: 'LinkedIn: bambang-pamungkas',
+        akunMedsosStatus: ['Baik - Akun tidak mengandung hal negatif'],
+        akunMedsosLainnya: '',
+        jenisAngsuran: ['Mobil', 'KPR'],
+        tenorCicilan: '60',
+        tunggakan: 'Tidak',
+        kartuKredit: 'Iya',
+        rekomendasi: 'Direkomendasikan',
+        justifikasi: 'Pengalaman manajerial yang kuat dan rekam jejak yang terbukti.',
+        email: 'bambang.p@example.com',
+        dibuatOleh: ADIRA_REKOMENDASI_BY[2],
+        diperiksaOleh: ADIRA_DIPERIKSA_OLEH,
+        diketahuiOleh: ADIRA_DIKETAHUI_OLEH,
+    }
 ];

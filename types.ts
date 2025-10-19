@@ -223,4 +223,260 @@ export interface WomJatengRefcekData {
   // Footer
   justifikasi: string;
   email: string;
+  direkomendasikanOleh: string;
+  diperiksaOleh: string;
+  diketahuiOleh: string;
+}
+
+// Tipe data baru untuk formulir "Reference Check" WOM SULAWESI
+export interface WomSulawesiRefcekData {
+  id: string;
+  createdAt: string;
+  // Header
+  namaKandidat: string;
+  posisiDilamar: string;
+  cabangKapos: string;
+  // A. Status Kandidat
+  statusKandidat: string; // 'New Hire Eksternal' | 'WOM to Outsourcing'
+  // B. Pengalaman
+  pengalaman: string; // 'Pengalaman Kerja' | 'Fresh graduated, pengalaman freelance' etc.
+  // C. Nama Perusahaan
+  namaPerusahaan: string;
+  // D. Pemberi Referensi
+  pemberiReferensiNama: string;
+  pemberiReferensiJabatan: string;
+  pemberiReferensiTelp: string;
+  // E. Masa Kerja Kandidat
+  masaKerjaTahun: string;
+  masaKerjaBulan: string;
+  // F. Masalah Kehadiran
+  masalahKehadiran: string; // 'Tepat Waktu' | 'Kadang Terlambat' | 'Sering Terlambat'
+  tidakMasukIzin: string;
+  // G. Masalah Kesehatan
+  masalahKesehatan: string; // 'Pernah Sakit Berkepanjangan' | 'Tidak Pernah Sakit yang Berkepanjangan'
+  masalahKesehatanDetail: string;
+  // H. Relasi dengan
+  relasiAtasan: string; // 'Baik' | 'Tidak Baik'
+  relasiAtasanDetail: string;
+  relasiRekan: string; // 'Baik' | 'Tidak Baik'
+  relasiRekanDetail: string;
+  relasiBawahan: string; // 'Baik' | 'Tidak Baik'
+  relasiBawahanDetail: string;
+  // I. Terkait Integritas
+  integritas: string; // 'Tidak ada masalah Fraud' | 'Terindikasi Fraud' | 'Pelaku Fraud'
+  integritasDetail: string;
+  // J. Performance
+  performance: string; // 'Exceed Target' | 'On Target' | 'Not Achieve Target'
+  // K. Alasan Resign
+  alasanResignI: string; // 'Mengundurkan Diri Baik-Baik' | 'Mengundurkan Diri Tidak Baik-Baik'
+  alasanResignII: string[]; // 'Tidak Perpanjang Kontrak', 'PHK', etc.
+  alasanResignIII: string; // Lainnya
+  alasanResignIVPenjelasan: string;
+  // L. Akun media sosial
+  akunMedsosAlamat: string;
+  akunMedsosStatus: string[]; // 'Baik - Akun tidak mengandung hal negatif', 'Konten Provokatif', etc.
+  akunMedsosLainnya: string;
+  // M. Kelebihan Kandidat
+  kelebihanKandidat: string;
+  // N. Kekurangan Kandidat
+  kekuranganKandidat: string;
+  // O. Rekomendasi
+  rekomendasi: string; // 'Direkomendasikan' | 'Tidak Rekomendasi'
+  justifikasi: string;
+  email: string;
+  // Signatories
+  direkomendasikanOleh: string;
+  diperiksaOleh: string;
+  diketahuiOleh: string;
+}
+
+// Tipe data baru untuk formulir "Reference Check" MAF
+export interface MafRefcekData {
+  id: string;
+  createdAt: string;
+  // Header
+  namaKandidat: string;
+  posisiDilamar: string;
+  cabangKapos: string;
+  // A. Status Kandidat
+  statusKandidat: string; // 'New Hire Eksternal' | 'Mega Auto Finance to Outsourcing'
+  // B. Pengalaman
+  pengalaman: string; // 'Pengalaman Kerja', 'Fresh graduated, pengalaman freelance', etc.
+  // C. Nama Perusahaan
+  namaPerusahaan: string;
+  // D. Pemberi Referensi
+  pemberiReferensiDivisi: string;
+  pemberiReferensiNama: string;
+  pemberiReferensiJabatan: string;
+  pemberiReferensiTelp: string;
+  // E. Masa Kerja Kandidat
+  masaKerjaTahun: string;
+  masaKerjaBulan: string;
+  // F. Masalah Kehadiran
+  masalahKehadiran: string; // 'Tepat Waktu' | 'Kadang Terlambat' | 'Sering Terlambat'
+  tidakMasukIzin: string;
+  // G. Masalah Kesehatan
+  masalahKesehatan: string; // 'Pernah Sakit Berkepanjangan' | 'Tidak Pernah Sakit yang Berkepanjangan'
+  masalahKesehatanDetail: string;
+  // H. Relasi dengan
+  relasiAtasan: string; // 'Baik' | 'Tidak Baik'
+  relasiAtasanDetail: string;
+  relasiRekan: string; // 'Baik' | 'Tidak Baik'
+  relasiRekanDetail: string;
+  relasiBawahan: string; // 'Baik' | 'Tidak Baik'
+  relasiBawahanDetail: string;
+  // I. Terkait Integritas
+  integritas: string; // 'Tidak ada masalah Fraud' | 'Terindikasi Fraud' | 'Pelaku Fraud'
+  integritasDetail: string;
+  // J. Performance
+  performance: string; // 'Exceed Target' | 'On Target' | 'Not Achieve Target'
+  // K. Alasan Resign
+  alasanResignI: string; // 'Mengundurkan Diri Baik-Baik' | 'Mengundurkan Diri Tidak Baik-Baik'
+  alasanResignII: string[]; // 'Tidak Perpanjang Kontrak', 'PHK', etc.
+  alasanResignIII: string; // Lainnya
+  alasanResignIVPenjelasan: string;
+  // L. Akun media sosial
+  akunMedsosAlamat1: string;
+  akunMedsosAlamat2: string;
+  akunMedsosStatus: string; // 'Baik' | 'Konten Provokatif' | 'Tata Bahasa kasar'
+  akunMedsosLainnya: string;
+  // M. Jenis Angsuran
+  jenisAngsuran: string[]; // 'Motor', 'Mobil', etc.
+  tenorCicilan: string;
+  tunggakan: string; // 'Iya' | 'Tidak'
+  kartuKredit: string; // 'Iya' | 'Tidak'
+  // N. Rekomendasi (di-rename dari M)
+  rekomendasi: string; // 'Direkomendasikan' | 'Tidak Rekomendasi'
+  // Footer
+  justifikasi: string;
+  email: string;
+  direkomendasikanOleh: string;
+  diperiksaOleh: string;
+  diketahuiOleh: string;
+}
+
+// Tipe data baru untuk formulir "Reference Check" MCF
+export interface McfRefcekData {
+  id: string;
+  createdAt: string;
+  // Header
+  namaKandidat: string;
+  posisiDilamar: string;
+  cabangKapos: string;
+  // A. Status Kandidat
+  statusKandidat: string; // 'New Hire Eksternal' | 'Mega Central Finance to Outsourcing'
+  // B. Pengalaman
+  pengalaman: string[]; // 'Pengalaman Kerja', 'Fresh graduated, pengalaman freelance', etc.
+  // C. Nama Perusahaan
+  namaPerusahaan: string;
+  // D. Pemberi Referensi
+  pemberiReferensiNama: string;
+  pemberiReferensiJabatan: string;
+  pemberiReferensiTelp: string;
+  // E. Masa Kerja Kandidat
+  masaKerjaTahun: string;
+  masaKerjaBulan: string;
+  // F. Masalah Kehadiran
+  masalahKehadiran: string; // 'Tepat Waktu' | 'Kadang Terlambat' | 'Sering Terlambat'
+  tidakMasukIzin: string;
+  // G. Masalah Kesehatan
+  masalahKesehatan: string; // 'Pernah Sakit Berkepanjangan' | 'Tidak Pernah Sakit yang Berkepanjangan'
+  masalahKesehatanDetail: string;
+  // H. Relasi dengan
+  relasiAtasan: string; // 'Baik' | 'Tidak Baik'
+  relasiAtasanDetail: string;
+  relasiRekan: string; // 'Baik' | 'Tidak Baik'
+  relasiRekanDetail: string;
+  relasiBawahan: string; // 'Baik' | 'Tidak Baik'
+  relasiBawahanDetail: string;
+  // I. Terkait Integritas
+  integritas: string; // 'Tidak ada masalah Fraud' | 'Terindikasi Fraud' | 'Pelaku Fraud'
+  integritasDetail: string;
+  // J. Performance
+  performance: string; // 'Exceed Target' | 'On Target' | 'Not Achieve Target'
+  // K. Alasan Resign
+  alasanResignI: string; // 'Mengundurkan Diri Baik-Baik' | 'Mengundurkan Diri Tidak Baik-Baik'
+  alasanResignII: string[]; // 'Tidak Perpanjang Kontrak', 'PHK', etc.
+  alasanResignIII: string; // Lainnya
+  alasanResignIVPenjelasan: string;
+  // L. Akun media sosial
+  akunMedsosAlamat: string;
+  akunMedsosStatus: string[]; // 'Baik - Akun tidak mengandung hal negatif', 'Konten Provokatif', etc.
+  akunMedsosLainnya: string;
+  // M. Jenis Angsuran
+  jenisAngsuran: string[]; // 'Motor', 'Mobil', etc.
+  tenorCicilan: string;
+  tunggakan: string; // 'Iya' | 'Tidak'
+  kartuKredit: string; // 'Iya' | 'Tidak'
+  // N. Rekomendasi (di-rename dari M)
+  rekomendasi: string; // 'Direkomendasikan' | 'Tidak Rekomendasi'
+  // Footer
+  justifikasi: string;
+  email: string;
+  dibuatOleh: string;
+  diperiksaOleh: string;
+  diketahuiOleh: string;
+}
+
+// Tipe data baru untuk formulir "Reference Check" ADIRA
+export interface AdiraRefcekData {
+  id: string;
+  createdAt: string;
+  // Header
+  namaKandidat: string;
+  posisiDilamar: string;
+  cabangKapos: string;
+  // A. Status Kandidat
+  statusKandidat: string; // 'New Hire Eksternal' | 'Adira Finance to Outsourcing'
+  // B. Pengalaman
+  pengalaman: string[]; // 'Pengalaman Kerja', 'Fresh graduated, pengalaman freelance', etc.
+  // C. Nama Perusahaan
+  namaPerusahaan: string;
+  // D. Pemberi Referensi
+  pemberiReferensiNama: string;
+  pemberiReferensiJabatan: string;
+  pemberiReferensiTelp: string;
+  // E. Masa Kerja Kandidat
+  masaKerjaTahun: string;
+  masaKerjaBulan: string;
+  // F. Masalah Kehadiran
+  masalahKehadiran: string; // 'Tepat Waktu' | 'Kadang Terlambat' | 'Sering Terlambat'
+  tidakMasukIzin: string;
+  // G. Masalah Kesehatan
+  masalahKesehatan: string; // 'Pernah Sakit Berkepanjangan' | 'Tidak Pernah Sakit yang Berkepanjangan'
+  masalahKesehatanDetail: string;
+  // H. Relasi dengan
+  relasiAtasan: string; // 'Baik' | 'Tidak Baik'
+  relasiAtasanDetail: string;
+  relasiRekan: string; // 'Baik' | 'Tidak Baik'
+  relasiRekanDetail: string;
+  relasiBawahan: string; // 'Baik' | 'Tidak Baik'
+  relasiBawahanDetail: string;
+  // I. Terkait Integritas
+  integritas: string; // 'Tidak ada masalah Fraud' | 'Terindikasi Fraud' | 'Pelaku Fraud'
+  integritasDetail: string;
+  // J. Performance
+  performance: string; // 'Exceed Target' | 'On Target' | 'Not Achieve Target'
+  // K. Alasan Resign
+  alasanResignI: string; // 'Mengundurkan Diri Baik-Baik' | 'Mengundurkan Diri Tidak Baik-Baik'
+  alasanResignII: string[]; // 'Tidak Perpanjang Kontrak', 'PHK', etc.
+  alasanResignIII: string; // Lainnya, YBS MASIH AKTIF BEKERJA
+  alasanResignIVPenjelasan: string;
+  // L. Akun media sosial
+  akunMedsosAlamat: string;
+  akunMedsosStatus: string[]; // 'Baik - Akun tidak mengandung hal negatif', 'Konten Provokatif', etc.
+  akunMedsosLainnya: string;
+  // M. Jenis Angsuran
+  jenisAngsuran: string[]; // 'Motor', 'Mobil', etc.
+  tenorCicilan: string;
+  tunggakan: string; // 'Iya' | 'Tidak'
+  kartuKredit: string; // 'Iya' | 'Tidak'
+  // N. Rekomendasi (di-rename dari M)
+  rekomendasi: string; // 'Direkomendasikan' | 'Tidak Rekomendasi'
+  // Footer
+  justifikasi: string;
+  email: string;
+  dibuatOleh: string;
+  diperiksaOleh: string;
+  diketahuiOleh: string;
 }

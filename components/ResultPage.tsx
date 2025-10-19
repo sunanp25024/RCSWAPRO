@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { Page, Submission, Status, RefcekData, LaporanData, WomData, WomJatengRefcekData } from '../types';
+import { Page, Submission, Status, RefcekData, LaporanData, WomData, WomJatengRefcekData, WomSulawesiRefcekData, MafRefcekData, McfRefcekData, AdiraRefcekData } from '../types';
 import SubmissionDetailModal from './SubmissionDetailModal';
 import ReportPage from './ReportPage';
 import FormPdfPage from './FormPdfPage'; // Import komponen baru
@@ -29,6 +29,22 @@ interface ResultPageProps {
   onAddWomJatengRefcek: (data: Omit<WomJatengRefcekData, 'id'>) => void;
   onUpdateWomJatengRefcek: (data: WomJatengRefcekData) => void;
   onDeleteWomJatengRefcek: (id: string) => void;
+  womSulawesiRefcekData: WomSulawesiRefcekData[];
+  onAddWomSulawesiRefcek: (data: Omit<WomSulawesiRefcekData, 'id'>) => void;
+  onUpdateWomSulawesiRefcek: (data: WomSulawesiRefcekData) => void;
+  onDeleteWomSulawesiRefcek: (id: string) => void;
+  mafRefcekData: MafRefcekData[];
+  onAddMafRefcek: (data: Omit<MafRefcekData, 'id'>) => void;
+  onUpdateMafRefcek: (data: MafRefcekData) => void;
+  onDeleteMafRefcek: (id: string) => void;
+  mcfRefcekData: McfRefcekData[];
+  onAddMcfRefcek: (data: Omit<McfRefcekData, 'id'>) => void;
+  onUpdateMcfRefcek: (data: McfRefcekData) => void;
+  onDeleteMcfRefcek: (id: string) => void;
+  adiraRefcekData: AdiraRefcekData[];
+  onAddAdiraRefcek: (data: Omit<AdiraRefcekData, 'id'>) => void;
+  onUpdateAdiraRefcek: (data: AdiraRefcekData) => void;
+  onDeleteAdiraRefcek: (id: string) => void;
 }
 
 const statusStyles: Record<Status, string> = {
@@ -56,7 +72,23 @@ const ResultPage: React.FC<ResultPageProps> = ({
     womJatengRefcekData,
     onAddWomJatengRefcek,
     onUpdateWomJatengRefcek,
-    onDeleteWomJatengRefcek
+    onDeleteWomJatengRefcek,
+    womSulawesiRefcekData,
+    onAddWomSulawesiRefcek,
+    onUpdateWomSulawesiRefcek,
+    onDeleteWomSulawesiRefcek,
+    mafRefcekData,
+    onAddMafRefcek,
+    onUpdateMafRefcek,
+    onDeleteMafRefcek,
+    mcfRefcekData,
+    onAddMcfRefcek,
+    onUpdateMcfRefcek,
+    onDeleteMcfRefcek,
+    adiraRefcekData,
+    onAddAdiraRefcek,
+    onUpdateAdiraRefcek,
+    onDeleteAdiraRefcek,
 }) => {
     const [activeTab, setActiveTab] = useState('Dashboard');
     const [filteredSubmissions, setFilteredSubmissions] = useState<Submission[]>(submissions);
@@ -236,6 +268,7 @@ const ResultPage: React.FC<ResultPageProps> = ({
                 </div>
                 <div>
                     {activeTab === 'Dashboard' && renderDashboard()}
+                    {/* FIX: Correctly pass props to the ReportPage component. */}
                     {activeTab === 'Report' && <ReportPage 
                         refcekData={refcekData}
                         onAddRefcek={onAddRefcek}
@@ -250,11 +283,28 @@ const ResultPage: React.FC<ResultPageProps> = ({
                         onUpdateWom={onUpdateWom}
                         onDeleteWom={onDeleteWom}
                     />}
+                    {/* FIX: Correctly pass props to the FormPdfPage component. */}
                     {activeTab === 'Form PDF' && <FormPdfPage 
                         womJatengRefcekData={womJatengRefcekData}
                         onAddWomJatengRefcek={onAddWomJatengRefcek}
                         onUpdateWomJatengRefcek={onUpdateWomJatengRefcek}
                         onDeleteWomJatengRefcek={onDeleteWomJatengRefcek}
+                        womSulawesiRefcekData={womSulawesiRefcekData}
+                        onAddWomSulawesiRefcek={onAddWomSulawesiRefcek}
+                        onUpdateWomSulawesiRefcek={onUpdateWomSulawesiRefcek}
+                        onDeleteWomSulawesiRefcek={onDeleteWomSulawesiRefcek}
+                        mafRefcekData={mafRefcekData}
+                        onAddMafRefcek={onAddMafRefcek}
+                        onUpdateMafRefcek={onUpdateMafRefcek}
+                        onDeleteMafRefcek={onDeleteMafRefcek}
+                        mcfRefcekData={mcfRefcekData}
+                        onAddMcfRefcek={onAddMcfRefcek}
+                        onUpdateMcfRefcek={onUpdateMcfRefcek}
+                        onDeleteMcfRefcek={onDeleteMcfRefcek}
+                        adiraRefcekData={adiraRefcekData}
+                        onAddAdiraRefcek={onAddAdiraRefcek}
+                        onUpdateAdiraRefcek={onUpdateAdiraRefcek}
+                        onDeleteAdiraRefcek={onDeleteAdiraRefcek}
                     />}
                 </div>
             </div>

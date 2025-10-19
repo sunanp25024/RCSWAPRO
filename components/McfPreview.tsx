@@ -1,10 +1,17 @@
 import React from 'react';
-import { WomJatengRefcekData } from '../types';
+import { McfRefcekData } from '../types';
 import { SIGNATORIES } from '../constants';
 
 const CheckboxDisplay: React.FC<{ label: string; checked: boolean }> = ({ label, checked }) => (
     <div className="flex items-start text-xs py-0.5">
         <span className="mr-2 text-indigo-700 text-sm leading-4">{checked ? '☑' : '☐'}</span>
+        <span className={checked ? 'text-gray-800 font-medium' : 'text-gray-500'}>{label}</span>
+    </div>
+);
+
+const RadioDisplay: React.FC<{ label: string; checked: boolean }> = ({ label, checked }) => (
+    <div className="flex items-start text-xs py-0.5">
+        <span className="mr-2 text-indigo-700 text-sm leading-4">{checked ? '◉' : '○'}</span>
         <span className={checked ? 'text-gray-800 font-medium' : 'text-gray-500'}>{label}</span>
     </div>
 );
@@ -28,7 +35,7 @@ const Section: React.FC<{ title: string; children: React.ReactNode }> = ({ title
     </div>
 );
 
-const WomJatengPreview: React.FC<{ data: WomJatengRefcekData | null }> = ({ data }) => {
+const McfPreview: React.FC<{ data: McfRefcekData | null }> = ({ data }) => {
     if (!data) {
         return (
             <div className="p-10 text-center bg-gray-50 rounded-lg">
@@ -38,30 +45,27 @@ const WomJatengPreview: React.FC<{ data: WomJatengRefcekData | null }> = ({ data
     }
 
     const defaultSignatory = { name: 'N/A', image: '' };
-    const direkomendasikanOleh = SIGNATORIES.find(s => s.name === data.direkomendasikanOleh) || defaultSignatory;
+    const dibuatOleh = SIGNATORIES.find(s => s.name === data.dibuatOleh) || { name: data.dibuatOleh, image: ''};
     const diperiksaOleh = SIGNATORIES.find(s => s.name === data.diperiksaOleh) || defaultSignatory;
     const diketahuiOleh = SIGNATORIES.find(s => s.name === data.diketahuiOleh) || defaultSignatory;
     
     return (
         <div className="bg-white p-6 shadow-lg font-sans">
-            {/* Header */}
             <header className="bg-indigo-800 text-white p-4 rounded-t-lg -m-6 mb-4">
                 <h1 className="text-xl font-bold text-center">REFERENCE CHECK FORM</h1>
             </header>
 
-            {/* Candidate Info */}
             <div className="text-center mb-4">
                 <h2 className="text-lg font-bold text-gray-900">{data.namaKandidat}</h2>
                 <p className="text-sm text-gray-600">{`${data.posisiDilamar} - ${data.cabangKapos}`}</p>
             </div>
 
-            {/* Content */}
             <main>
                 <Section title="A. Status Kandidat & B. Pengalaman">
                    <div className="col-span-1">
                      <p className="text-xs font-bold text-gray-500 mb-1">Status Kandidat</p>
-                     <CheckboxDisplay label="New Hire Eksternal" checked={data.statusKandidat === 'New Hire Eksternal'} />
-                     <CheckboxDisplay label="WOM to Outsourcing" checked={data.statusKandidat === 'WOM to Outsourcing'} />
+                     <RadioDisplay label="New Hire Eksternal" checked={data.statusKandidat === 'New Hire Eksternal'} />
+                     <RadioDisplay label="Mega Central Finance to Outsourcing" checked={data.statusKandidat === 'Mega Central Finance to Outsourcing'} />
                    </div>
                    <div className="col-span-1">
                      <p className="text-xs font-bold text-gray-500 mb-1">Pengalaman</p>
@@ -73,7 +77,7 @@ const WomJatengPreview: React.FC<{ data: WomJatengRefcekData | null }> = ({ data
                 </Section>
                 
                 <Section title="C, D, E. Riwayat & Referensi">
-                    <DataPair label="Nama Perusahaan (C)">{data.namaPerusahaan}</DataPair>
+                    <DataPair label="Nama Perusahaan (C)" fullWidth>{data.namaPerusahaan}</DataPair>
                     <DataPair label="Nama Pemberi Referensi (D)">{data.pemberiReferensiNama}</DataPair>
                     <DataPair label="Jabatan Pereferensi (D)">{data.pemberiReferensiJabatan}</DataPair>
                     <DataPair label="Nomor Telepon (D)">{data.pemberiReferensiTelp}</DataPair>
@@ -97,34 +101,40 @@ const WomJatengPreview: React.FC<{ data: WomJatengRefcekData | null }> = ({ data
                     <DataPair label="(iv) Penjelasan Wajib" fullWidth>{data.alasanResignIVPenjelasan}</DataPair>
                 </Section>
 
-                 <Section title="L, M. Media Sosial & Rekomendasi">
-                    <DataPair label="Alamat Akun (L)">{data.akunMedsosAlamat}</DataPair>
+                 <Section title="L, M. Media Sosial & Angsuran">
+                    <DataPair label="Alamat Akun Medsos (L)">{data.akunMedsosAlamat}</DataPair>
                     <DataPair label="Status Akun (L)" fullWidth>{`${data.akunMedsosStatus.join(', ')}${data.akunMedsosLainnya ? ` (Lainnya: ${data.akunMedsosLainnya})` : ''}`}</DataPair>
-                    <DataPair label="Rekomendasi (M)">{data.rekomendasi}</DataPair>
+                    <DataPair label="Jenis Angsuran (M)">{data.jenisAngsuran.join(', ')}</DataPair>
+                    <DataPair label="Tenor Cicilan (M)">{data.tenorCicilan}</DataPair>
+                    <DataPair label="Tunggakan (M)">{data.tunggakan}</DataPair>
+                    <DataPair label="Kartu Kredit (M)">{data.kartuKredit}</DataPair>
+                </Section>
+
+                <Section title="N. Rekomendasi">
+                    <DataPair label="Rekomendasi">{data.rekomendasi}</DataPair>
                     <DataPair label="Email">{data.email}</DataPair>
                     <DataPair label="Justifikasi" fullWidth>{data.justifikasi}</DataPair>
                 </Section>
             </main>
 
-            {/* Signature */}
             <div className="mt-4 pt-4 border-t border-gray-200">
                 <div className="grid grid-cols-3 text-center text-xs text-gray-600">
                      <div>
-                        <p>Di Rekomendasikan Oleh</p>
+                        <p>Dibuat Oleh,</p>
                         <div className="h-12 flex items-center justify-center">
-                            {direkomendasikanOleh.image && <img src={direkomendasikanOleh.image} alt="Tanda Tangan" className="h-10 object-contain" />}
+                            {dibuatOleh.image && <img src={dibuatOleh.image} alt="Tanda Tangan" className="h-10 object-contain" />}
                         </div>
-                        <p className="font-bold">( {direkomendasikanOleh.name} )</p>
+                        <p className="font-bold">( {dibuatOleh.name} )</p>
                     </div>
                     <div>
-                        <p>Diperiksa Oleh</p>
+                        <p>Diperiksa Oleh,</p>
                          <div className="h-12 flex items-center justify-center">
                             {diperiksaOleh.image && <img src={diperiksaOleh.image} alt="Tanda Tangan" className="h-10 object-contain" />}
                          </div>
                         <p className="font-bold">( {diperiksaOleh.name} )</p>
                     </div>
                     <div>
-                        <p>Diketahui Oleh</p>
+                        <p>Diketahui Oleh,</p>
                         <div className="h-12 flex items-center justify-center">
                             {diketahuiOleh.image && <img src={diketahuiOleh.image} alt="Tanda Tangan" className="h-10 object-contain" />}
                         </div>
@@ -133,15 +143,14 @@ const WomJatengPreview: React.FC<{ data: WomJatengRefcekData | null }> = ({ data
                 </div>
             </div>
 
-            {/* Footer */}
             <footer className="bg-indigo-800 text-indigo-200 text-xs p-4 rounded-b-lg -m-6 mt-4 space-y-1">
                 <p><span className="font-bold text-white">Pada Point (D):</span> Pemberi referensi WAJIB hrd & atau atasan langsung. Data diri pemberi referensi harus lengkap.</p>
-                <p><span className="font-bold text-white">Pada point (F):</span> Kadang terlambat = 1 bulan maksimal 3x. Sering Terlambat = 1 bulan &gt; 3x.</p>
-                <p><span className="font-bold text-white">Pada point (K):</span> Ceklist salah satu pada kategori (i), boleh ceklist lebih dari satu pada kategori (ii), dan WAJIB mengisi detail resign pada kategori (iv).</p>
-                <p><span className="font-bold text-white">Justifikasi:</span> Penjelasan kenapa kandidat ini tetap ingin dilanjutkan prosesnya, padahal point (L) Tidak direkomendasikan.</p>
+                <p><span className="font-bold text-white">Pada point (F):</span> Kadang terlambat = 1 bulan maksimal 3x. Sering Terlambat = 1 bulan &gt; 3x. Dan pernah tidak masuk tanpa izin berapa kali ?</p>
+                <p><span className="font-bold text-white">Pada point (K):</span> Ceklist salah satu pada kategori (i), dan boleh ceklist lebih dari satu pada kategori (ii), yang selanjutnya WAJIB mengisi detail resign pada kategori (iv).</p>
+                <p><span className="font-bold text-white">Justifikasi:</span> Penjelasan kenapa kandidat ini tetap ingin dilanjutkan prosesnya, padahal point (N) Tidak direkomendasikan.</p>
             </footer>
         </div>
     );
 };
 
-export default WomJatengPreview;
+export default McfPreview;
