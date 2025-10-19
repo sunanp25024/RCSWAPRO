@@ -2541,4 +2541,117 @@ const FormPdfPage: React.FC<FormPdfPageProps> = (props) => {
                 </button>
             </div>
             <div className="flex-grow overflow-auto bg-white rounded-lg shadow">
-                 <table className="min-w-full divide-y divide-gray-200
+                 <table className="min-w-full divide-y divide-gray-200">
+                    <thead className="bg-gray-50 sticky top-0">
+                        <tr>
+                            <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Nama Kandidat</th>
+                            <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Posisi</th>
+                            <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Cabang</th>
+                            <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Tanggal Dibuat</th>
+                            <th className="px-4 py-3 text-center text-xs font-medium text-gray-500 uppercase tracking-wider">Aksi</th>
+                        </tr>
+                    </thead>
+                    <tbody className="bg-white divide-y divide-gray-200">
+                        {props.adiraRefcekData.map(d => (
+                            <tr key={d.id} className="hover:bg-gray-50">
+                                <td className="px-4 py-4 whitespace-nowrap text-sm font-medium text-gray-900">{d.namaKandidat}</td>
+                                <td className="px-4 py-4 whitespace-nowrap text-sm text-gray-500">{d.posisiDilamar}</td>
+                                <td className="px-4 py-4 whitespace-nowrap text-sm text-gray-500">{d.cabangKapos}</td>
+                                <td className="px-4 py-4 whitespace-nowrap text-sm text-gray-500">{new Date(d.createdAt).toLocaleDateString('id-ID')}</td>
+                                <td className="px-4 py-4 whitespace-nowrap text-sm text-center">
+                                    <div className="flex items-center justify-center gap-3">
+                                        <button onClick={() => handleOpenAdiraPreview(d)} className="text-blue-600 hover:text-blue-900" title="Lihat Pratinjau"><EyeIcon/></button>
+                                        <button onClick={() => handleOpenAdiraEdit(d)} className="text-yellow-600 hover:text-yellow-900" title="Edit"><PencilIcon/></button>
+                                        <button onClick={() => handleOpenAdiraDelete(d)} className="text-red-600 hover:text-red-900" title="Hapus"><TrashIcon/></button>
+                                    </div>
+                                </td>
+                            </tr>
+                        ))}
+                    </tbody>
+                </table>
+                {props.adiraRefcekData.length === 0 && (
+                    <p className="text-center text-gray-500 py-10">Belum ada data. Silakan "Buat Form Baru".</p>
+                )}
+            </div>
+            <AdiraFormModal 
+                isOpen={isAdiraFormModalOpen}
+                onClose={() => setIsAdiraFormModalOpen(false)}
+                onSubmit={handleAdiraFormSubmit}
+                initialData={selectedAdiraData}
+            />
+            {isAdiraPreviewModalOpen && <AdiraPreviewModal 
+                data={selectedAdiraData}
+                onClose={() => { setIsAdiraPreviewModalOpen(false); setSelectedAdiraData(null); }}
+            />}
+            {selectedAdiraData && <DeleteConfirmModal 
+                isOpen={isAdiraDeleteModalOpen}
+                onClose={() => setIsAdiraDeleteModalOpen(false)}
+                onConfirm={handleConfirmAdiraDelete}
+                itemName={selectedAdiraData.namaKandidat}
+            />}
+        </div>
+    );
+
+    const renderContent = () => {
+        switch (selectedForm) {
+            case 'WOM JATENG':
+                return renderWomJatengGenerator();
+            case 'WOM SULAWESI':
+                return renderWomSulawesiGenerator();
+            case 'MAF':
+                return renderMafGenerator();
+            case 'MCF':
+                return renderMcfGenerator();
+            case 'ADIRA':
+                return renderAdiraGenerator();
+            default:
+                return (
+                    <div className="flex flex-col items-center justify-center h-full bg-white rounded-lg shadow-inner text-center p-8">
+                        <h2 className="text-2xl font-bold text-gray-700">Pilih Formulir</h2>
+                        <p className="text-gray-500 mt-2">Silakan pilih jenis formulir dari dropdown di atas untuk mulai mengelola data.</p>
+                    </div>
+                );
+        }
+    };
+
+    return (
+        <div className="h-[calc(100vh-220px)] flex flex-col bg-gray-50 rounded-lg shadow-md overflow-hidden">
+            <header className="p-4 bg-white border-b border-gray-200 flex justify-between items-center z-10">
+                <h2 className="text-xl font-bold text-gray-800">Manajemen Formulir PDF</h2>
+                <div className="relative" ref={dropdownRef}>
+                    <button
+                        onClick={() => setIsDropdownOpen(!isDropdownOpen)}
+                        className="bg-white border border-gray-300 text-gray-700 font-semibold py-2 px-4 rounded-lg shadow-sm hover:bg-gray-50 transition-colors flex items-center gap-2"
+                    >
+                        {selectedForm || 'Pilih Form'}
+                        <svg className={`h-5 w-5 transform transition-transform ${isDropdownOpen ? 'rotate-180' : ''}`} xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" /></svg>
+                    </button>
+                    {isDropdownOpen && (
+                        <div className="absolute right-0 mt-2 w-64 bg-white rounded-lg shadow-xl py-1 border border-gray-200">
+                            {formOptions.map(form => (
+                                <button
+                                    key={form}
+                                    onClick={() => handleSelectForm(form)}
+                                    className="w-full text-left px-4 py-2 text-gray-800 hover:bg-blue-500 hover:text-white"
+                                >
+                                    {form}
+                                </button>
+                            ))}
+                        </div>
+                    )}
+                </div>
+            </header>
+            <main className="flex-grow overflow-y-auto">
+                {renderContent()}
+            </main>
+        </div>
+    );
+};
+
+const EyeIcon = () => <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" /><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M2.458 12C3.732 7.943 7.522 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.022 7-9.542 7-4.478 0-8.268-2.943-9.542-7z" /></svg>;
+const PencilIcon = () => <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.5L15.232 5.232z" /></svg>;
+const TrashIcon = () => <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" /></svg>;
+const CloseIcon = () => <svg className="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12"></path></svg>;
+const SpinnerIcon = () => <svg className="animate-spin h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle><path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg>;
+
+export default FormPdfPage;
